@@ -18,10 +18,28 @@
       try {
         const resp = await this.octokit.request(`GET /repos/${this.owner}/${this.repo}/commits`);
   
-        return await resp.data;
+        return await this.cleanCommitsData(resp.data);
       } 
       catch (error) {
         throw new Error(`Error fetching commits: ${error}`);
       }
+    }
+  
+    private cleanCommitsData(originalData) {
+      const cleanedData = originalData.map(item => {
+          return {
+              commit: {
+                  author: {
+                      name: item.commit.author.name,
+                      email: item.commit.author.email,
+                      date: item.commit.author.date,
+                  },
+                  message: item.commit.message,
+                  avatar_url: item.committer.avatar_url,
+              }
+          };
+      });
+  
+      return cleanedData;
     }
   }
