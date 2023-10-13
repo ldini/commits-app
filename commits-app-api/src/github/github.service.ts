@@ -7,7 +7,7 @@
   export class GithubService {
   
     private owner : string = 'ldini';
-    private repo : string = 'github-api'
+    private repo : string = 'commits-app'
   
     constructor(private readonly octokit: Octokit) {
   
