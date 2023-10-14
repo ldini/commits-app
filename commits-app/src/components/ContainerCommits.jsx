@@ -3,7 +3,7 @@ import Commit from './Commit';
 
 const ContainerCommits = () => {
 
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState({ name_repo: "", commits: [] });
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -23,15 +23,15 @@ const ContainerCommits = () => {
 
     return (
         <div className="app">
-            <h1>Lista de tareas</h1>
-            {tasks.map((commit, index) => (
+            <h1 className="text-white text-3xl underline decoration-1 text-left m-4">Repository: {tasks.name_repo} </h1>
+            {tasks.commits.map((commit, index) => (
                 <Commit
                     key={index}
-                    authorName={commit.commit.author.name}
-                    authorEmail={commit.commit.author.email}
-                    authorAvatar={commit.commit.avatar_url}
-                    commitDate={commit.commit.author.date}
-                    commitMessage={commit.commit.message}
+                    authorName={commit.author.name}
+                    authorEmail={commit.author.email}
+                    authorAvatar={commit.avatar_url}
+                    commitDate={commit.author.date}
+                    commitMessage={commit.message}
                 />
             ))}
         </div>

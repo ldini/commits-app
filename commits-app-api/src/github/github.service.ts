@@ -25,21 +25,24 @@
       }
     }
   
-    private cleanCommitsData(originalData) {
-      const cleanedData = originalData.map(item => {
-          return {
-              commit: {
-                  author: {
-                      name: item.commit.author.name,
-                      email: item.commit.author.email,
-                      date: item.commit.author.date,
-                  },
-                  message: item.commit.message,
-                  avatar_url: item.committer.avatar_url,
-              }
-          };
-      });
+    private cleanCommitsData(data) {
+      let cleanedData = {
+          "name_repo": this.repo,
+          "commits": data.map(item => {
+              return {
+                  
+                      "author": {
+                          "name": item.commit.author.name,
+                          "email": item.commit.author.email,
+                          "date": item.commit.author.date
+                      },
+                      "message": item.commit.message,
+                      "avatar_url": item.committer.avatar_url
+                  
+              };
+          })
+      };
   
       return cleanedData;
-    }
+  }
   }
